@@ -17,13 +17,16 @@ class Robot(wpilib.TimedRobot):
         self.stick = wpilib.XboxController(0)
 
         self.solenoid = wpilib.Solenoid(0, wpilib.PneumaticsModuleType.CTREPCM, 0)
-
+        self.gyro = wpilib.ADIS16448_IMU()
         self.timer = wpilib.Timer()
         self.timer.start()
 
         self.first = True
 
         self.first_again = True
+    
+    def robotPeriodic(self):
+        print(self.gyro.getGyroAngleX(), self.gyro.getAngle())
 
     def autonomousPeriodic(self):
         if self.timer.get() > 2 and self.first:
